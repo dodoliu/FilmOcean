@@ -5,4 +5,4 @@
 film_ocean: rails项目主目录
 
 CustomTools: 一些项目需要的自定义gem
-	* film_search_tool: 定向信息抓取工具
+* film_search_tool: 定向信息抓取工具
