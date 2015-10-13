@@ -1,0 +1,8 @@
+== Film Ocean 《影海拾贝》
+
+这是我的Ruby练习项目，我起了一个貌似很有诗意的名字！
+
+film_ocean: rails项目主目录
+
+CustomTools: 一些项目需要的自定义gem
+	* film_search_tool: 定向信息抓取工具
