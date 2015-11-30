@@ -1,4 +1,4 @@
-#encoding=utf8
+#encoding=utf-8
 
 =begin
 Author: LDY
@@ -8,8 +8,8 @@ Desc: 针对http://www.llduang.com/，获取该站点上的影片内容
 
 require 'net/http'
 require 'cgi'
-require File.dirname(__FILE__) + '/helpers/common_helper.rb'
-require File.dirname(__FILE__) + '/helpers/require_models_helper.rb'
+require File.dirname(__FILE__) + '/helpers/common_helper'
+require File.dirname(__FILE__) + '/helpers/require_models_helper'
 
 #定向抓lldunag内容
 module Llduang
@@ -42,9 +42,9 @@ module Llduang
 
 				#需要翻页的数量
 				max_page_number = get_max_page_number response, film_class
-
+max_page_number
 				#分析出第一页的内容，
-
+				# analyse_content response
 
 				#遍历剩下的内容
 				# (2..max_page_number).each do |index|
@@ -64,7 +64,7 @@ module Llduang
 
 		end
 
-		private
+		# private
 
 		#所有影片分类
 		def film_classes
@@ -92,8 +92,9 @@ module Llduang
 
 			# resource_li = resource_ul.to_s.scan
 
-
-
+			#匹配单个影片信息区块
+			sigle_film_info_regex = /<li class="post box row fixed-hight">[\s\S]*?<\/li>/
+			sigle_film_infos = sigle_film_info_regex.match response
 
 		end
 
