@@ -8,9 +8,11 @@ Desc: 针对http://www.llduang.com/，获取该站点上的影片内容
 
 require 'net/http'
 require 'cgi'
-require File.dirname(__FILE__) + 'application'
-require File.dirname(__FILE__) + '/helpers/common_helper'
-require File.dirname(__FILE__) + '/helpers/require_models_helper'
+
+CurrFilePath = File.dirname(__FILE__)
+require CurrFilePath + '/application'
+require CurrFilePath + '/helpers/common_helper'
+require CurrFilePath + '/helpers/require_models_helper'
 
 #定向抓lldunag内容
 module Llduang
@@ -133,6 +135,7 @@ max_page_number
 		def set_file_title(c_name,e_name)
 			title_info = new Model::FilmTitle
 			title_info.set c_name, e_name
+			title_info.save
 		end
 
 	end

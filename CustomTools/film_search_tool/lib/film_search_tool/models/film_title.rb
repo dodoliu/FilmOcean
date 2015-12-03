@@ -18,7 +18,7 @@ module Model
 		end
 
 		def save
-			sql = "insert into film_titles(id,chinese_name,english_name,created_at,updated_at) values(2,'你好','nihao','2015-12-03','2015-12-03')"
+			sql = "insert into film_titles(id,chinese_name,english_name,created_at,updated_at) values(3,'你好','nihao','2015-12-03','2015-12-03')"
 
 			@client.query(sql)
 		end
@@ -26,5 +26,5 @@ module Model
 end
 
 
-aaaa = Model::FilmTitle.new
-aaaa.save
+# aaaa = Model::FilmTitle.new
+# aaaa.save
