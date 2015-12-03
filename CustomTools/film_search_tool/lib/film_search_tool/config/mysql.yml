@@ -1,0 +1,20 @@
+default: &default
+  encoding: utf8
+  pool: 5
+  username: root
+  password:
+  host: localhost
+
+development:
+  <<: *default
+  database: film_ocean_development
+
+test:
+  <<: *default
+  database: film_ocean_test
+
+production:
+  <<: *default
+  database: film_ocean_production
+  username: film_ocean
+  password: <%= ENV['FILM_OCEAN_DATABASE_PASSWORD'] %>

@@ -8,13 +8,17 @@ Desc: 针对http://www.llduang.com/，获取该站点上的影片内容
 
 require 'net/http'
 require 'cgi'
+require File.dirname(__FILE__) + 'application'
 require File.dirname(__FILE__) + '/helpers/common_helper'
 require File.dirname(__FILE__) + '/helpers/require_models_helper'
 
 #定向抓lldunag内容
 module Llduang
-	class Website
+	class Website < Application
 		include Helper
+
+		# attr_accessor :chiness_name, :enginsh_name, :source = 'llduang', :source_url
+
 		# 获取内容
 		def get_content
 			all_film_classes = film_classes
@@ -96,6 +100,39 @@ max_page_number
 			sigle_film_info_regex = /<li class="post box row fixed-hight">[\s\S]*?<\/li>/
 			sigle_film_infos = sigle_film_info_regex.match response
 
+
+			# sigle_film_infos.each do |sigle_film|
+
+
+				#影片名称
+				#<h2><a href="http://www.llduang.com/11385.html" rel="bookmark" target="_blank" title="爱与慈悲 Love &amp; Mercy (2014)" _hover-ignore="1">爱与慈悲 Love &amp; Mercy (2014)</a></h2>
+				film_name_href_regex = /<h2><a[\s\S]*?<\/a><\/h2>/
+				film_name_href = film_name_href_regex.match sigle_film_infos[0]
+				#获取引号中的内容，第一个为影片详细内容的url，第四个位影片名称
+				film_name_result_regex = /"[\s\S]*?"/
+				film_name_result = film_name_result_regex.match film_name_href.to_s
+
+				film_name_result[0].to_s.gsub('"','')
+
+				# set_film_source @film_name_result[0].to_s.gsub('\"','')
+
+
+
+			# end
+
+		end
+
+		#来源信息
+		def set_film_source(source_url)
+			source_info = new Model::FilmSource
+			source_info.set source_url
+
+			p source_info
+		end
+		#影片名信息
+		def set_file_title(c_name,e_name)
+			title_info = new Model::FilmTitle
+			title_info.set c_name, e_name
 		end
 
 	end

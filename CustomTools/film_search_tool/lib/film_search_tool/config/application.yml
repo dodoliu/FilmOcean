@@ -1,0 +1,4 @@
+#env 设置默认启动环境 production,development,test
+env: development
+#db 设置默认使用的数据库 mysql, postgresql
+db: mysql

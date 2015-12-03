@@ -8,9 +8,6 @@ Desc: 定向抓wujidy内容
 
 module Btwuji
 	#抓bbs内容
-	class Bbs
-		
-
-		
+	class Bbs < Application
 	end
 end
