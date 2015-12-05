@@ -7,5 +7,6 @@ class CreateFilmTitles < ActiveRecord::Migration
 
       t.timestamps null: false
     end
+    add_index :film_titles, [:chinese_name,:english_name], unique: true
   end
 end
