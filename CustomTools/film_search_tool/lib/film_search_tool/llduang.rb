@@ -67,7 +67,7 @@ max_page_number
 
 		#保存内容
 		def save_content
-
+			FilmTitle.create(:chinese_name=>"中文名A")
 		end
 
 		# private
@@ -142,6 +142,6 @@ max_page_number
 end
 
 aaa = Llduang::Website.new
-aaa.get_content
+aaa.save_content
 
 

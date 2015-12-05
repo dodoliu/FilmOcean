@@ -1,6 +1,7 @@
 source 'https://ruby.taobao.org'
 
 gem 'mysql2'
+gem 'activerecord'
 
 gem 'rspec'
 gem 'rspec-core'

@@ -6,6 +6,7 @@ Date: 2015-12-3
 Desc: 程序启动时，加载通用配置
 =end
 require 'yaml'
+require 'active_record'
 
 class Application
 	#应用程序根目录路径
@@ -25,4 +26,11 @@ class Application
 	$APPLICATIONENV = application["env"] || 'development'
 	#设置程序使用的数据库
 	$APPLICATIONDB = application["db"] || 'mysql'
+
+
+	#数据库配置
+	db_config_path = $ROOTFILEPATH + "/config/#{$APPLICATIONDB}.yml"
+	db_config = YAML.load(File.open(db_config_path))
+	ActiveRecord::Base.establish_connection(db_config["#{$APPLICATIONENV}"])
+
 end
