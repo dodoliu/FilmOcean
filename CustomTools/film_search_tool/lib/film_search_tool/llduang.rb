@@ -21,8 +21,6 @@ module Llduang
 		include Helper
 		include LlduangHelper
 
-		# attr_accessor :chiness_name, :enginsh_name, :source = 'llduang', :source_url
-
 		# 获取内容
 		def get_content
 			all_film_classes = film_classes
@@ -35,36 +33,35 @@ module Llduang
 				# response = Net::HTTP.get URI(uri)
 
 				#写法2
-				# response = (url_get url).force_encoding('utf-8')
+				response = (url_get url).force_encoding('utf-8')
 
 				#为了不影响网站的正常访问，每次请求之后，主线程sleep 5分钟
 				sleep 60 * 5
 
-				response = %q(<div class="clear"></div>
-			<div class="navigation container">
-			<div class='pagination'>
-			<a href='http://www.llduang.com/tag/%E4%BC%A0%E8%AE%B0' class='current'>1</a>
-			<a href='http://www.llduang.com/tag/%E4%BC%A0%E8%AE%B0/page/2'>2</a>
-			<a href='http://www.llduang.com/tag/%E4%BC%A0%E8%AE%B0/page/3'>3</a>
-			<a href="http://www.llduang.com/tag/%E4%BC%A0%E8%AE%B0/page/2" class="next">下一页</a>
-			<a href='http://www.llduang.com/tag/%E4%BC%A0%E8%AE%B0/page/3' class='extend' title='跳转到最后一页'>尾页</a>
-			</div></div>)
+				# 	response = %q(<div class="clear"></div>
+				# <div class="navigation container">
+				# <div class='pagination'>
+				# <a href='http://www.llduang.com/tag/%E4%BC%A0%E8%AE%B0' class='current'>1</a>
+				# <a href='http://www.llduang.com/tag/%E4%BC%A0%E8%AE%B0/page/2'>2</a>
+				# <a href='http://www.llduang.com/tag/%E4%BC%A0%E8%AE%B0/page/3'>3</a>
+				# <a href="http://www.llduang.com/tag/%E4%BC%A0%E8%AE%B0/page/2" class="next">下一页</a>
+				# <a href='http://www.llduang.com/tag/%E4%BC%A0%E8%AE%B0/page/3' class='extend' title='跳转到最后一页'>尾页</a>
+				# </div></div>)
 				# p response
 
 				#需要翻页的数量
 				max_page_number = get_max_page_number response, film_class
 # max_page_number
 				#分析出第一页的内容，
-				# analyse_content response
+				analyse_content response
 
 				#遍历剩下的内容
-				# (2..max_page_number).each do |index|
-				# 	new_url = url + "\/page\/#{index}"
-				# 	# new_response = Net::HTTP.get URI(new_url)
-				# 	# analyse_content new_response
-				# 	new_response = get new_url
-
-				# end
+				(2..max_page_number).each do |index|
+					new_url = url + "\/page\/#{index}"
+					new_response = Net::HTTP.get URI(new_url)
+					analyse_content new_response
+					# new_response = get new_url
+				end
 			end
 		end
 		#获取明细内容
@@ -72,25 +69,34 @@ module Llduang
 			response = (url_get sub_url).force_encoding('utf-8')
 
 			context_regex = /<div class="context">[\s\S]*?<\/div>/
+			context_result = context_regex.match response
 
+			#中文名称, 间接下载地址(明细地址)
+			film_chinese_name, detail_url = get_chinese_name_detail_url context_result
+			#英文名称
+			film_english_name = get_english_name context_result
 			#导演
-			director_regex = /<h3><span class="pl">导演<\/span>: <span class="attrs">[\s\S]*?<\/span>/
-
-			#主演
-			actor_regex = /<span class="actor"><span class="pl">主演<\/span>: <span class="attrs">[\s\S]*?<\/span><\/span>/
-
+			directors = get_directors context_result
+			#演员
+			actors = get_actors context_result
 			#类别
-			category_regex = /<span class="pl">类型:<\/span>[\s\S]*?<br \/>/
-
+			categories = get_categories context_result
 			#区域
-			area_regex = /<span class="pl">制片国家\/地区:<\/span>[\s\S]*?<br \/>/
-
-			#英文名、别名
-			other_title_regex = /<span class="pl">又名:<\/span>[\s\S]*?<br \/>/
-
-
+			area = get_area context_result
+			#直接下载地址
+			download_url = get_download_url context_result
+			#百度云盘地址
+			download_baidu_url = get_download_baidu_url context_result
+			#百度云盘密码
+			download_baidu_password = get_download_baidu_password context_result
 			#logo
-			logo_regex = /<p><img class="aligncenter"[\s\S]*?<\/p>/
+			logo_url = get_logo context_result
+			#简介
+			introduction = get_introduction context_result
+			
+
+			film_title = FilmTitle.llduang_save film_chinese_name, film_english_name
+
 
 		end
 

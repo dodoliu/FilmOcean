@@ -96,6 +96,13 @@ RSpec.describe LlduangHelper do
 	end
 
 	it "获取百度云盘下载地址密码" do
-		expect(get_download_baidu_password_url(sub_sigle_film)).to eq('mdb2')
+		expect(get_download_baidu_password(sub_sigle_film)).to eq('mdb2')
 	end
+
+	it "获取简介" do
+		introduction = '<h3>昔日校花秋雅（王智 饰）的婚礼正在隆重举行，学生时代暗恋秋雅的夏洛（沈腾 饰）看着周围事业成功的老同学，心中泛起酸味，借着七分醉意大闹婚礼现场，甚至惹得妻子马冬梅（马丽 饰）现场发飙，而他发泄过后却在马桶上睡着了。梦里他重回校园，追求到他心爱的女孩、让失望的母亲重展笑颜、甚至成为无所不能的流行乐坛巨星……<br />
+醉生梦死中，他发现身边人都在利用自己，只有马冬梅是最值得珍惜的……</h3>'
+		expect(get_introduction(sub_sigle_film)).to eq(introduction)
+	end
+
 end

@@ -13,4 +13,13 @@ Desc: 影片出品地区
 # end
 
 class FilmArea < ActiveRecord::Base
+
+	protected
+	def self.llduang_save(area)
+		film_area = FilmArea.find_by area: area
+		if film_area.blank?
+			film_area = FilmArea.create(area: area)
+		end
+		return film_area
+	end
 end
