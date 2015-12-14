@@ -28,43 +28,46 @@ module LlduangHelper
 	end
 	#获取导演
 	def get_directors(sub_sigle_film)
-		director_regex = %r(<h3><span class="pl">导演</span>: <span class="attrs">[\s\S]*?</span>)
-		directors_regex = %r(<span class="attrs">[\s\S]*?</span>)
-		director_result = director_regex.match sub_sigle_film
-		directors_result = directors_regex.match director_result.to_s
-		directors_split = directors_result.to_s.split('">')
-		directors_split_result = directors_split[1].gsub('</span>', '').split('/')
-		directors = []
-		directors_split_result.each do |director|
-			directors.push director.strip
-		end
-		directors
+		# director_regex = %r(<h3><span class="pl">导演</span>: <span class="attrs">[\s\S]*?</span>)
+		# directors_regex = %r(<span class="attrs">[\s\S]*?</span>)
+		# director_result = director_regex.match sub_sigle_film
+		# directors_result = directors_regex.match director_result.to_s
+		# directors_split = directors_result.to_s.split('">')
+		# directors_split_result = directors_split[1].gsub('</span>', '').split('/')
+		# directors = []
+		# directors_split_result.each do |director|
+		# 	directors.push director.strip
+		# end
+		# directors
+		get_content_by_regex_type_five(sub_sigle_film, %r(<h3><span class="pl">导演</span>: <span class="attrs">[\s\S]*?</span>), %r(<span class="attrs">[\s\S]*?</span>), '">', '</span>', '/')
 	end
 	#获取演员
 	def get_actors(sub_sigle_film)
-		actor_regex = %r(<span class="actor"><span class="pl">主演</span>: <span class="attrs">[\s\S]*?</span></span>)
-		actors_regex = %r(<span class="attrs">[\s\S]*?</span>)
-		actor_result = actor_regex.match sub_sigle_film
-		actors_result = actors_regex.match actor_result.to_s
-		actors_split = actors_result.to_s.gsub('</span>', '').split('">')
-		actors_split_result = actors_split[1].split('/')
-		actors = []
-		actors_split_result.each do |actor|
-			actors.push actor.strip
-		end
-		actors
+		# actor_regex = %r(<span class="actor"><span class="pl">主演</span>: <span class="attrs">[\s\S]*?</span></span>)
+		# actors_regex = %r(<span class="attrs">[\s\S]*?</span>)
+		# actor_result = actor_regex.match sub_sigle_film
+		# actors_result = actors_regex.match actor_result.to_s
+		# actors_split = actors_result.to_s.gsub('</span>', '').split('">')
+		# actors_split_result = actors_split[1].split('/')
+		# actors = []
+		# actors_split_result.each do |actor|
+		# 	actors.push actor.strip
+		# end
+		# actors
+		get_content_by_regex_type_three(sub_sigle_film, %r(<span class="actor"><span class="pl">主演</span>: <span class="attrs">[\s\S]*?</span></span>), %r(<span class="attrs">[\s\S]*?</span>), '</span>', '">', '/')
 	end
 	#获取类别
 	def get_categories(sub_sigle_film)
-		category_regex = %r(<span class="pl">类型:</span>[\s\S]*?<br />)
-		category_result = category_regex.match sub_sigle_film
-		categories_split = category_result.to_s.split('span>')
-		categories_split_result = categories_split[1].gsub('<br />', '').split('/')
-		categories = []
-		categories_split_result.each do |category|
-			categories.push category.strip
-		end
-		categories
+		# category_regex = %r(<span class="pl">类型:</span>[\s\S]*?<br />)
+		# category_result = category_regex.match sub_sigle_film
+		# categories_split = category_result.to_s.split('span>')
+		# categories_split_result = categories_split[1].gsub('<br />', '').split('/')
+		# categories = []
+		# categories_split_result.each do |category|
+		# 	categories.push category.strip
+		# end
+		# categories
+		get_content_by_regex_type_four(sub_sigle_film, %r(<span class="pl">类型:</span>[\s\S]*?<br />), 'span>', '<br />', '/')
 	end
 	#获取区域
 	def get_area(sub_sigle_film)
@@ -124,8 +127,42 @@ module LlduangHelper
 		split_result = second_regex_result.to_s.split(split_regex)
 		result = split_result[1].gsub(gusb_regex, '').strip
 	end
-	#
-
+	#第三种新型,5步获取结果,返回一个数组
+	def get_content_by_regex_type_three(sub_sigle_film, first_regex, second_regex, gsub_regex, first_split_regex, second_split_regex)
+		first_regex_result = first_regex.match sub_sigle_film
+		second_regex_result = second_regex.match first_regex_result.to_s
+		gsub_split_result = second_regex_result.to_s.gsub(gsub_regex, '').split(first_split_regex)
+		split_result = gsub_split_result[1].split(second_split_regex)
+		result = []
+		split_result.each do |item|
+			result.push item.strip
+		end
+		result
+	end
+	#第四种新型,4步获取结果,返回一个数组
+	def get_content_by_regex_type_four(sub_sigle_film, first_regex, first_split_regex, gsub_regex, second_split_regex)
+		first_regex_result = first_regex.match sub_sigle_film
+		# first_result = first_regex_result.match first_regex_result.to_s
+		split_result = first_regex_result.to_s.split(first_split_regex)
+		gsub_split_result = split_result[1].gsub(gsub_regex, '').split(second_split_regex)
+		result = []
+		gsub_split_result.each do |item|
+			result.push item.strip
+		end
+		result
+	end
+	#第五种新型,5步获取结果,返回一个数组,和get_content_by_regex_type_three有细微区别
+	def get_content_by_regex_type_five(sub_sigle_film, first_regex, second_regex, first_split_regex, gsub_regex, second_split_regex)
+		first_regex_result = first_regex.match sub_sigle_film
+		second_regex_result = second_regex.match first_regex_result.to_s
+		gsub_split_result = second_regex_result.to_s.split(first_split_regex)
+		split_result = gsub_split_result[1].gsub(gsub_regex, '').split(second_split_regex)
+		result = []
+		split_result.each do |item|
+			result.push item.strip
+		end
+		result
+	end
 
 
 end
