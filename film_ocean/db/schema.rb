@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151205161853) do
+ActiveRecord::Schema.define(version: 20151214151910) do
 
   create_table "file_logos", force: :cascade do |t|
     t.string   "logo_url",   limit: 500
@@ -36,12 +36,12 @@ ActiveRecord::Schema.define(version: 20151205161853) do
   add_index "film_areas", ["area"], name: "index_film_areas_on_area", unique: true, using: :btree
 
   create_table "film_categories", force: :cascade do |t|
-    t.string   "categoy",    limit: 10
+    t.string   "category",   limit: 10
     t.datetime "created_at",            null: false
     t.datetime "updated_at",            null: false
   end
 
-  add_index "film_categories", ["categoy"], name: "index_film_categories_on_categoy", unique: true, using: :btree
+  add_index "film_categories", ["category"], name: "index_film_categories_on_category", unique: true, using: :btree
 
   create_table "film_directors", force: :cascade do |t|
     t.string   "director",   limit: 50
@@ -57,6 +57,7 @@ ActiveRecord::Schema.define(version: 20151205161853) do
     t.string   "expand",               limit: 50
     t.datetime "created_at",                       null: false
     t.datetime "updated_at",                       null: false
+    t.string   "download_other_url",   limit: 500
   end
 
   create_table "film_introductions", force: :cascade do |t|
