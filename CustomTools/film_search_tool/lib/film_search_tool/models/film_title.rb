@@ -1,34 +1,17 @@
 #encoding=utf-8
 
-=begin
-Author: LDY
-Date: 2015-11-29
-Desc: 影片名称
-=end
-
-# require File.dirname(__FILE__) + '/base_model'
-
-# module Model
-# 	class FilmTitle < BaseModel
-# 		attr_accessor :chinese_name, :english_name
-
-# 		def set(c_name,e_name)
-# 			@chinese_name = c_name
-# 			@english_name = e_name
-# 		end
-
-# 		def save
-# 			sql = "insert into film_titles(id,chinese_name,english_name,created_at,updated_at) values(3,'你好','nihao','2015-12-03','2015-12-03')"
-
-# 			@client.query(sql)
-# 		end
-# 	end
-# end
-
-
-# aaaa = Model::FilmTitle.new
-# aaaa.save
-
-
 class FilmTitle < ActiveRecord::Base
+	has_one :film
+
+	protected
+
+	#服务于llduang
+	#获取名称
+	def self.llduang_save(c_name, e_name)
+		film_title = FilmTitle.find_by chinese_name: c_name, english_name: e_name
+		if film_title.blank?
+			film_title = FilmTitle.create(chinese_name: c_name, english_name: e_name)
+		end
+		return film_title
+	end
 end

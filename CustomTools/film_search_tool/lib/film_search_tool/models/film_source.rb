@@ -23,5 +23,10 @@ Desc：影片来源
 # require 'active_record'
 
 class FilmSource < ActiveRecord::Base
+
+	#llduang
+	def llduang_save(source_url)
+		FilmSource.create(source: 'llduang', source_url: source_url)
+	end
 end
 

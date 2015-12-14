@@ -13,4 +13,9 @@ Desc: 影片下载地址
 # 	end
 # end
 class FilmDownload < ActiveRecord::Base
+
+	#llduang
+	def llduang_save(download_url, download_contact_url, expand)
+		FilmDownload.create(download_url: download_url, download_contact_url: download_contact_url, expand: expand)
+	end
 end

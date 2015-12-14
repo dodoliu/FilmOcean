@@ -12,12 +12,14 @@ require 'cgi'
 CurrFilePath = File.dirname(__FILE__)
 require CurrFilePath + '/application'
 require CurrFilePath + '/helpers/common_helper'
+require CurrFilePath + '/helpers/llduang_helper'
 require CurrFilePath + '/helpers/require_models_helper'
 
 #定向抓lldunag内容
 module Llduang
 	class Website < Application
 		include Helper
+		include LlduangHelper
 
 		# attr_accessor :chiness_name, :enginsh_name, :source = 'llduang', :source_url
 
@@ -33,7 +35,10 @@ module Llduang
 				# response = Net::HTTP.get URI(uri)
 
 				#写法2
-				# response = (get url).force_encoding('utf-8')
+				# response = (url_get url).force_encoding('utf-8')
+
+				#为了不影响网站的正常访问，每次请求之后，主线程sleep 5分钟
+				sleep 60 * 5
 
 				response = %q(<div class="clear"></div>
 			<div class="navigation container">
@@ -48,7 +53,7 @@ module Llduang
 
 				#需要翻页的数量
 				max_page_number = get_max_page_number response, film_class
-max_page_number
+# max_page_number
 				#分析出第一页的内容，
 				# analyse_content response
 
@@ -62,12 +67,31 @@ max_page_number
 				# end
 			end
 		end
+		#获取明细内容
+		def get_sub_content(sub_url, film_chinese_name)
+			response = (url_get sub_url).force_encoding('utf-8')
+
+			context_regex = /<div class="context">[\s\S]*?<\/div>/
+
+			#导演
+			director_regex = /<h3><span class="pl">导演<\/span>: <span class="attrs">[\s\S]*?<\/span>/
+
+			#主演
+			actor_regex = /<span class="actor"><span class="pl">主演<\/span>: <span class="attrs">[\s\S]*?<\/span><\/span>/
+
+			#类别
+			category_regex = /<span class="pl">类型:<\/span>[\s\S]*?<br \/>/
+
+			#区域
+			area_regex = /<span class="pl">制片国家\/地区:<\/span>[\s\S]*?<br \/>/
+
+			#英文名、别名
+			other_title_regex = /<span class="pl">又名:<\/span>[\s\S]*?<br \/>/
 
 
+			#logo
+			logo_regex = /<p><img class="aligncenter"[\s\S]*?<\/p>/
 
-		#保存内容
-		def save_content
-			FilmTitle.create(:chinese_name=>"中文名A")
 		end
 
 		# private
@@ -82,12 +106,9 @@ max_page_number
 		def get_max_page_number(response,film_class)
 			#<a href="http://www.llduang.com/tag/%e5%8a%a8%e4%bd%9c/page/16" class="extend" title="跳转到最后一页">尾页</a>
 			max_page_number_regex = /<a href='http:\/\/www.llduang.com\/tag\/#{CGI::escape(film_class)}\/page\/\d{1,5}' class='extend' title='跳转到最后一页'>尾页<\/a>/
-			# p max_page_number_regex
 			max_page_number_url = max_page_number_regex.match response
-			# p max_page_number_url
 			#该分类具有的最大分页
 			max_page_number = (/\d{1,5}/.match max_page_number_url.to_s).to_s.to_i
-			# p max_page_number
 		end
 
 		#分析内容
@@ -102,46 +123,12 @@ max_page_number
 			sigle_film_info_regex = /<li class="post box row fixed-hight">[\s\S]*?<\/li>/
 			sigle_film_infos = sigle_film_info_regex.match response
 
-
-			# sigle_film_infos.each do |sigle_film|
-
-
-				#影片名称
-				#<h2><a href="http://www.llduang.com/11385.html" rel="bookmark" target="_blank" title="爱与慈悲 Love &amp; Mercy (2014)" _hover-ignore="1">爱与慈悲 Love &amp; Mercy (2014)</a></h2>
-				film_name_href_regex = /<h2><a[\s\S]*?<\/a><\/h2>/
-				film_name_href = film_name_href_regex.match sigle_film_infos[0]
-				#获取引号中的内容，第一个为影片详细内容的url，第四个位影片名称
-				film_name_result_regex = /"[\s\S]*?"/
-				film_name_result = film_name_result_regex.match film_name_href.to_s
-
-				film_name_result[0].to_s.gsub('"','')
-
-				# set_film_source @film_name_result[0].to_s.gsub('\"','')
-
-
-
-			# end
-
+			sigle_film_infos.each do |sigle_film|
+				#获取影片名称和影片详情页
+				film_chinese_name, detail_url = get_chinese_name_detail_url sigle_film
+				#获取明细内容
+				get_sub_content detail_url, film_chinese_name
+			end
 		end
-
-		#来源信息
-		def set_film_source(source_url)
-			source_info = new Model::FilmSource
-			source_info.set source_url
-
-			p source_info
-		end
-		#影片名信息
-		def set_file_title(c_name,e_name)
-			title_info = new Model::FilmTitle
-			title_info.set c_name, e_name
-			title_info.save
-		end
-
 	end
 end
-
-aaa = Llduang::Website.new
-aaa.save_content
-
-
