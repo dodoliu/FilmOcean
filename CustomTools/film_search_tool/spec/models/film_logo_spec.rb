@@ -1,5 +1,4 @@
 require 'spec_helper'
-require 'film_search_tool/models/film_logo'
 
 RSpec.describe FilmLogo do
 	# it "保存影片logo" do

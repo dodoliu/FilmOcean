@@ -6,3 +6,5 @@ gem 'activerecord'
 gem 'rspec'
 gem 'rspec-core'
 gem 'rspec-autotest'
+
+gem 'factory_girl'

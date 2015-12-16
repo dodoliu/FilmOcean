@@ -1,5 +1,4 @@
 require 'spec_helper'
-require 'film_search_tool/models/film'
 
 RSpec.describe Film do
 	# it "保存影片信息" do
@@ -8,4 +7,8 @@ RSpec.describe Film do
 		# film_area = FilmArea.llduang_save area
 		# expect(film_area.area).to eq(area)
 	# end
+
+	it "保存影片信息" do
+		# film_tilte
+	end
 end

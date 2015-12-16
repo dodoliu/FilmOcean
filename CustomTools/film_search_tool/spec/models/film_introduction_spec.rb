@@ -1,10 +1,9 @@
 require 'spec_helper'
-require 'film_search_tool/models/film_introduction'
 
 RSpec.describe FilmIntroduction do
 	it "保存简介" do
-		introduction = '这是简介哈哈'
-		film_introduction = FilmIntroduction.llduang_save introduction
-		expect(film_introduction.introduction).to eq(introduction)
+		fg_film_introduction = build :film_introduction
+		film_introduction = FilmIntroduction.llduang_save fg_film_introduction.introduction
+		expect(film_introduction.introduction).to eq(fg_film_introduction.introduction)
 	end
 end
