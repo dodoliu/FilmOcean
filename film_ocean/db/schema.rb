@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151214151910) do
+ActiveRecord::Schema.define(version: 20151216153024) do
 
   create_table "file_logos", force: :cascade do |t|
     t.string   "logo_url",   limit: 500
@@ -58,6 +58,7 @@ ActiveRecord::Schema.define(version: 20151214151910) do
     t.datetime "created_at",                       null: false
     t.datetime "updated_at",                       null: false
     t.string   "download_other_url",   limit: 500
+    t.integer  "source",               limit: 4
   end
 
   create_table "film_introductions", force: :cascade do |t|
@@ -65,15 +66,6 @@ ActiveRecord::Schema.define(version: 20151214151910) do
     t.datetime "created_at",              null: false
     t.datetime "updated_at",              null: false
   end
-
-  create_table "film_sources", force: :cascade do |t|
-    t.string   "source",     limit: 255
-    t.string   "source_url", limit: 500
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
-  end
-
-  add_index "film_sources", ["source"], name: "index_film_sources_on_source", unique: true, using: :btree
 
   create_table "film_titles", force: :cascade do |t|
     t.string   "chinese_name", limit: 255
@@ -91,12 +83,7 @@ ActiveRecord::Schema.define(version: 20151214151910) do
     t.string   "english_name",         limit: 255
     t.integer  "film_logo_id",         limit: 4
     t.integer  "film_area_id",         limit: 4
-    t.integer  "film_director_id",     limit: 4
-    t.integer  "film_category_id",     limit: 4
     t.integer  "film_introduction_id", limit: 4
-    t.integer  "film_source_id",       limit: 4
-    t.integer  "film_download__id",    limit: 4
-    t.integer  "film_actor_id",        limit: 4
     t.integer  "film_language",        limit: 4
     t.datetime "make_date"
     t.integer  "show_type",            limit: 4
@@ -108,5 +95,32 @@ ActiveRecord::Schema.define(version: 20151214151910) do
   end
 
   add_index "films", ["chinese_name", "english_name"], name: "index_films_on_chinese_name_and_english_name", unique: true, using: :btree
+
+  create_table "films_film_actors", force: :cascade do |t|
+    t.integer  "film_id",       limit: 4
+    t.integer  "film_actor_id", limit: 4
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
+  end
+
+  add_index "films_film_actors", ["film_id", "film_actor_id"], name: "index_films_film_actors_on_film_id_and_film_actor_id", using: :btree
+
+  create_table "films_film_categories", force: :cascade do |t|
+    t.integer  "film_id",          limit: 4
+    t.integer  "film_category_id", limit: 4
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
+  end
+
+  add_index "films_film_categories", ["film_id", "film_category_id"], name: "index_films_film_categories_on_film_id_and_film_category_id", using: :btree
+
+  create_table "films_film_directors", force: :cascade do |t|
+    t.integer  "film_id",          limit: 4
+    t.integer  "film_director_id", limit: 4
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
+  end
+
+  add_index "films_film_directors", ["film_id", "film_director_id"], name: "index_films_film_directors_on_film_id_and_film_director_id", using: :btree
 
 end

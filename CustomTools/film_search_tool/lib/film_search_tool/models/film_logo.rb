@@ -13,6 +13,7 @@ Desc：影片logo
 # end
 
 class FilmLogo < ActiveRecord::Base
+	belongs_to :film
 
 
 	protected

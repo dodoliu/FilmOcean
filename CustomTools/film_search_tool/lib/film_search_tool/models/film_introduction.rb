@@ -1,6 +1,7 @@
 #encoding=utf-8
 
 class FilmIntroduction < ActiveRecord::Base
+	belongs_to :film
 
 	protected
 	def self.llduang_save(introduction)

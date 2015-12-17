@@ -3,11 +3,12 @@ $APPLICATION_YML_PATH = File.dirname(__FILE__) + '/config/application.yml'
 require 'rspec'
 require 'film_search_tool/application'
 require 'factory_girl'
+# require 'active_record'
+
 
 #models
 require 'film_search_tool/models/film'
 require 'film_search_tool/models/film_title'
-require 'film_search_tool/models/film_source'
 require 'film_search_tool/models/film_logo'
 require 'film_search_tool/models/film_introduction'
 require 'film_search_tool/models/film_download'
@@ -18,7 +19,6 @@ require 'film_search_tool/models/film_actor'
 
 #FactoryGirl
 require 'factories/film_titles'
-require 'factories/film_sources'
 require 'factories/film_logos'
 require 'factories/film_introductions'
 require 'factories/film_downloads'
@@ -26,6 +26,12 @@ require 'factories/film_directors'
 require 'factories/film_categories'
 require 'factories/film_areas'
 require 'factories/film_actors'
+
+	# #数据库配置
+	# db_config_path = $ROOTFILEPATH + "/config/#{$APPLICATIONDB}.yml"
+	# db_config = YAML.load(File.open(db_config_path))
+	# ActiveRecord::Base.establish_connection(db_config["#{$APPLICATIONENV}"])
+
 
 RSpec.configure do |config|
 	config.include FactoryGirl::Syntax::Methods

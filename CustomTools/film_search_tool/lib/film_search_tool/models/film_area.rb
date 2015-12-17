@@ -13,6 +13,7 @@ Desc: 影片出品地区
 # end
 
 class FilmArea < ActiveRecord::Base
+	belongs_to :film
 
 	protected
 	def self.llduang_save(area)

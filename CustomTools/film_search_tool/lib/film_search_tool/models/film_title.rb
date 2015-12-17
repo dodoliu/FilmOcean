@@ -1,7 +1,7 @@
 #encoding=utf-8
 
 class FilmTitle < ActiveRecord::Base
-	has_one :film
+	belongs_to :film
 
 	protected
 
