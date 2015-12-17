@@ -13,12 +13,6 @@
 
 ActiveRecord::Schema.define(version: 20151216153024) do
 
-  create_table "file_logos", force: :cascade do |t|
-    t.string   "logo_url",   limit: 500
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
-  end
-
   create_table "film_actors", force: :cascade do |t|
     t.string   "actor",      limit: 50
     t.datetime "created_at",            null: false
@@ -65,6 +59,12 @@ ActiveRecord::Schema.define(version: 20151216153024) do
     t.string   "introduction", limit: 20
     t.datetime "created_at",              null: false
     t.datetime "updated_at",              null: false
+  end
+
+  create_table "film_logos", force: :cascade do |t|
+    t.string   "logo_url",   limit: 500
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
   end
 
   create_table "film_titles", force: :cascade do |t|

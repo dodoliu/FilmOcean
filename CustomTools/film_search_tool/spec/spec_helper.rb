@@ -3,8 +3,8 @@ $APPLICATION_YML_PATH = File.dirname(__FILE__) + '/config/application.yml'
 require 'rspec'
 require 'film_search_tool/application'
 require 'factory_girl'
-# require 'active_record'
-
+require 'database_cleaner'
+require 'qiniu'
 
 #models
 require 'film_search_tool/models/film'
@@ -34,5 +34,13 @@ require 'factories/film_actors'
 
 
 RSpec.configure do |config|
+	#配置FactoryGirl
 	config.include FactoryGirl::Syntax::Methods
 end
+
+#配置DatabaseCleaner
+DatabaseCleaner.strategy = :truncation
+
+#配置七牛云存储
+Qiniu.establish_connection! :access_key => 'SvDYpGHkXMlUnm4RsdE6iOLzaGRcyey5vdVsycPD',
+                            :secret_key => 'PgQhg_8PkT0Jlnucsz0WFa2xfaiiss1jSjtYUCda'

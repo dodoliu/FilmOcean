@@ -8,3 +8,6 @@ gem 'rspec-core'
 gem 'rspec-autotest'
 
 gem 'factory_girl'
+gem 'database_cleaner'
+
+gem 'qiniu', '~> 6.4.1'

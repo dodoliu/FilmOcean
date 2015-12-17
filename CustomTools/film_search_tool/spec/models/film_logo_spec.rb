@@ -8,4 +8,6 @@ RSpec.describe FilmLogo do
 		# film_area = FilmArea.llduang_save area
 		# expect(film_area.area).to eq(area)
 	# end
+
+	
 end
