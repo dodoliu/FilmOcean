@@ -1,9 +1,11 @@
 require 'spec_helper'
 
 RSpec.describe FilmTitle do
+	let(:film_title) { build :film_title}
 	it "保存影片名称" do
-		fg_film_title = build :film_title
-		film_title = FilmTitle.llduang_save fg_film_title.chinese_name, fg_film_title.english_name
-		expect([film_title.chinese_name, film_title.english_name]).to eq([fg_film_title.chinese_name, fg_film_title.english_name])
+		tmp_film_title = FilmTitle.create(
+			chinese_name: film_title.chinese_name,
+			english_name: film_title.english_name)
+		expect([tmp_film_title.chinese_name, tmp_film_title.english_name]).to eq([film_title.chinese_name, film_title.english_name])
 	end
 end

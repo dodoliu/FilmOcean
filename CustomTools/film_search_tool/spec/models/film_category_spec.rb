@@ -1,10 +1,10 @@
 require 'spec_helper'
 
 RSpec.describe FilmCategory do
+	let(:film_category) { build :film_category }
+
 	it "保存影片导演" do
-		fg_film_category_1 = build :film_category
-		fg_film_category_2 = build :film_category
-		film_categories = FilmCategory.llduang_save [fg_film_category_1.category, fg_film_category_2.category]
-		expect([film_categories[0].category, film_categories[1].category]).to eq([fg_film_category_1.category, fg_film_category_2.category])
+		tmp_film_category = FilmCategory.create category: film_category.category
+		expect(tmp_film_category.category).to eq(film_category.category)
 	end
 end

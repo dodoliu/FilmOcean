@@ -9,5 +9,5 @@ RSpec.describe FilmLogo do
 		# expect(film_area.area).to eq(area)
 	# end
 
-	
+	#图片需要上传到七牛CDN
 end

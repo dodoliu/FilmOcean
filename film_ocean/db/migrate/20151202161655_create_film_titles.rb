@@ -4,6 +4,7 @@ class CreateFilmTitles < ActiveRecord::Migration
       t.string :chinese_name
       t.string :english_name
       t.boolean :status
+      t.belongs_to :film
 
       t.timestamps null: false
     end

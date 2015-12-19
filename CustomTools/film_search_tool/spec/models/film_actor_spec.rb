@@ -1,10 +1,10 @@
 require 'spec_helper'
 
 RSpec.describe FilmActor do
+	let(:film_actor) { build :film_actor }
+
 	it "保存演员" do
-		fg_film_actor_1 = build :film_actor
-		fg_film_actor_2 = build :film_actor
-		film_actors = FilmActor.llduang_save [fg_film_actor_1.actor, fg_film_actor_2.actor]
-		expect([film_actors[0].actor, film_actors[1].actor]).to eq([fg_film_actor_1.actor, fg_film_actor_2.actor])
+		tmp_film_actor = FilmActor.create actor: film_actor.actor
+		expect(tmp_film_actor.actor).to eq(film_actor.actor)
 	end
 end

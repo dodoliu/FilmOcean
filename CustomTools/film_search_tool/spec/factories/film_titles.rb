@@ -1,6 +1,6 @@
 FactoryGirl.define do
 	factory :film_title do
-		chinese_name '夏洛特烦恼'
-		english_name 'Goodbye Mr. Loser'
+		sequence(:chinese_name) { |n| "中文名称#{n}" }
+		sequence(:english_name) { |n| "英文名称#{n}" }
 	end
 end

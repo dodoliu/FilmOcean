@@ -1,11 +1,9 @@
 class CreateFilmsFilmDirectors < ActiveRecord::Migration
   def change
-    create_table :films_film_directors do |t|
-    	t.integer :film_id
-    	t.integer :film_director_id
-
-    	t.timestamps null: false
+    create_table :film_directors_films, id: false do |t|
+    	t.belongs_to :film
+    	t.belongs_to :film_director
     end
-    add_index :films_film_directors, [:film_id, :film_director_id]
+    add_index :film_directors_films, [:film_id, :film_director_id]
   end
 end

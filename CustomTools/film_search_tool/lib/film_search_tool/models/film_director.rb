@@ -3,17 +3,17 @@
 class FilmDirector < ActiveRecord::Base
 	has_and_belongs_to_many :films
 
-	protected
-	def self.llduang_save(directors)
-		#查不存在的记录,返回所有对象
-		film_directors = []
-		directors.each do |item|
-			director = FilmDirector.find_by director: item
-			if director.blank?
-				director = FilmDirector.create director: item
-			end
-			film_directors.push director
-		end
-		return film_directors
-	end
+	# protected
+	# def self.llduang_save(directors)
+	# 	#查不存在的记录,返回所有对象
+	# 	film_directors = []
+	# 	directors.each do |item|
+	# 		director = FilmDirector.find_by director: item
+	# 		if director.blank?
+	# 			director = FilmDirector.create director: item
+	# 		end
+	# 		film_directors.push director
+	# 	end
+	# 	return film_directors
+	# end
 end

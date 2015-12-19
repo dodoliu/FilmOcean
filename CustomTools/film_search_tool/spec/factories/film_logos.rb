@@ -1,5 +1,5 @@
 FactoryGirl.define do
 	factory :film_logo do
-		logo_url 'https://google.com'
+		sequence(:logo_url) { |n| "http://logo_url.com#{n}" }
 	end
 end

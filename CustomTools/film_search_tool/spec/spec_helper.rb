@@ -36,11 +36,19 @@ require 'factories/film_actors'
 RSpec.configure do |config|
 	#配置FactoryGirl
 	config.include FactoryGirl::Syntax::Methods
+
+	#设置DatabaseCleaner能顺利清空测试数据
+	config.before(:suite) do
+       DatabaseCleaner.strategy = :transaction #, {:except => %w[widgets]}
+       DatabaseCleaner.clean_with(:truncation)
+	end
+	config.before(:each) do
+		DatabaseCleaner.start
+	end
+	config.after(:each) do
+		DatabaseCleaner.clean
+	end
 end
 
-#配置DatabaseCleaner
-DatabaseCleaner.strategy = :truncation
-
-#配置七牛云存储
-Qiniu.establish_connection! :access_key => 'SvDYpGHkXMlUnm4RsdE6iOLzaGRcyey5vdVsycPD',
-                            :secret_key => 'PgQhg_8PkT0Jlnucsz0WFa2xfaiiss1jSjtYUCda'
+#加载一些通用配置
+require 'film_search_tool/config/config' 

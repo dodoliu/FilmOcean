@@ -1,5 +1,5 @@
 FactoryGirl.define do
 	factory :film_introduction do
-		introduction '这是简介哈哈'
+		sequence(:introduction) { |n| "这是简介#{n}" }
 	end
 end
