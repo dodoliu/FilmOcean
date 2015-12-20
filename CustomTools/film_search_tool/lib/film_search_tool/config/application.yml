@@ -2,3 +2,5 @@
 env: development
 #db 设置默认使用的数据库 mysql, postgresql
 db: mysql
+#logger_output log输出的位置(STDOUT:输出到控制台, STDERR:输出到屏幕, log.txt:输出到文件)
+logger_output: STDERR

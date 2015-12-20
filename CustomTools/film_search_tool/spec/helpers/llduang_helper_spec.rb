@@ -105,4 +105,9 @@ RSpec.describe LlduangHelper do
 		expect(get_introduction(sub_sigle_film)).to eq(introduction)
 	end
 
+	pending "获取语言"
+	pending "获取公映日期"
+	pending "获取评分"
+	pending "获取片长"
+
 end

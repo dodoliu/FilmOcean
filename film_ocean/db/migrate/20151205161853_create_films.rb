@@ -8,7 +8,7 @@ class CreateFilms < ActiveRecord::Migration
       t.integer :film_area_id
       t.integer :film_introduction_id
       t.integer :film_language
-      t.datetime :make_date
+      t.string :make_date, limit: 50
       t.integer :show_type
       t.integer :click_rate
       t.integer :grade

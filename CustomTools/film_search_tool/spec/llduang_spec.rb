@@ -1,44 +1,32 @@
-
-#因为找不到好的解决方案来区分测试环境和开发环境。。。。
-# $APPLICATION_YML_PATH = File.dirname(__FILE__) + '/config/application.yml'
+# encoding: utf-8
 require 'spec_helper'
-# require 'film_search_tool/llduang'
+require 'film_search_tool/llduang'
 
-# RSpec.describe Llduang do
-# 	# it "validate max_page_number" do
-# 	# 	llduang = Llduang::Website.new
-# 	# 	# llduang.get_content
+RSpec.describe Llduang do
 
-# 	# 	expect(llduang.film_classes).to eq(["传记"])
-# 	# end
+	let(:response) { '<div class="context">
+				<div id="post_content"><h3> <img class="aligncenter" src="http://i12.tietuku.com/c3f9227e958e25f6s.jpg" alt="鬼吹灯之寻龙诀.2015.TS" alt="" /></h3>
+<p>&nbsp;</p>
+<h3><span class="pl">导演</span>: <span class="attrs">乌尔善</span><br />
+<span class="pl">编剧</span>: <span class="attrs">张家鲁</span><br />
+<span class="actor"><span class="pl">主演</span>: <span class="attrs">陈坤 / 黄渤 / 舒淇 / 杨颖 / 夏雨 / 刘晓庆 /颜卓灵</span></span><br />
+<span class="pl">类型:</span> 剧情 / 动作 / 奇幻 / 冒险<br />
+<span class="pl">制片国家/地区:</span> 中国大陆<br />
+<span class="pl">语言:</span> 汉语普通话<br />
+<span class="pl">上映日期:</span> 2015-12-18(中国大陆)<br />
+<span class="pl">片长:</span> 125分钟(中国大陆)<br />
+<span class="pl">又名:</span> 乌尔善版鬼吹灯 / 鬼吹灯之寻龙诀 / 鬼吹灯 / The Ghouls / Mojin - The Lost Legend</h3>
+<h2>寻龙诀的剧情简介  ·  ·  ·  ·  ·  ·</h2>
+<div id="link-report" class="indent"><span class="">　　上世纪80年代末，胡八一（陈坤 饰）、王凯旋（黄渤 饰）与Shirley杨（舒淇 饰）在美国打算金盆洗手，本来叱咤风云的摸金校尉沦为街头小贩被移民局追得满街跑。就在此时，意外发现20年前死在草原上的初恋对象丁思甜（Angelababy 饰）可能还活着，胡八一、王凯旋、Shirley杨决定再入草原千年古墓……</span></div>
+<h2>寻龙诀的下载地址</h2>
+<p><span style="color: #ff6600;">磁力下链接：</span></p>
+<p><span style="color: #ff6600;">百度下载链接：<span style="color: #0000ff;"><a style="color: #0000ff;" href="http://pan.baidu.com/s/1jHutM4I" target="_blank">http://pan.baidu.com/s/1jHutM4I</a> </span></span></p>
+<p><span style="color: #ff6600;">密码：7ue5</span></p>
+<p><span style="color: #0000ff;"><a style="color: #0000ff;" href="http://www.llduang.com/21028.html" target="_blank">在线播放戳这里》》》</a></span></p>
+<div class="indent">' }
 
-# 	# it "validate source" do
-# 	# 	llduang = Llduang::Website.new
-# 	# 	expect(llduang.analyse_content('<li class="post box row fixed-hight">                	                    <div class="thumbnail">                        <a href="http://www.llduang.com/18336.html" class="zoom" rel="bookmark" target="_blank" title="成为简·奥斯汀 Becoming Jane (2007)">                                                      	                                <img src="http://i12.tietuku.com/10198cdafef9c7ccs.jpg" width="300" height="400" alt="成为简·奥斯汀 Becoming Jane (2007)"/>                                                  <div class="zoomOverlay"></div>                        </a>                    </div>                    <div class="article">                        <h2><a href="http://www.llduang.com/18336.html" rel="bookmark" target="_blank" title="成为简·奥斯汀 Becoming Jane (2007)">成为简·奥斯汀 Becoming Jane (2007)</a></h2>                                                     <div class="entry_post">                                <p>                                导演: 朱里安·杰拉德 编剧: Sarah Williams / Kevin Hood / 简·奥斯汀 主演: 安妮·海瑟薇 / 詹姆斯·麦卡沃伊 / 朱丽·沃特斯 / 詹姆斯·克伦威尔 / 玛吉·史密...                                </p>                            </div>                                            </div>    				<div class="info">                        <span class="info_date info_ico">11-13</span>                    	<span class="info_views info_ico">2285</span>                        <span class="info_comment info_ico"><a href="http://www.llduang.com/18336.html#respond">0</a></span>                        <span class="info_category info_ico"><a href="http://www.llduang.com/category/%e6%9c%80%e6%96%b0%e7%94%b5%e5%bd%b1/%e6%ac%a7%e7%be%8e%e7%94%b5%e5%bd%b1" rel="category tag">欧美电影</a></span>     				</div>    		</li>')).to eq('http://www.llduang.com/18336.html')
-# 	# end
-
-# 	it "get film chineses name" do
-		
-# 	end
-# 	it "get film english name" do
-# 	end
-# 	it "get film logo" do
-# 	end
-# 	it "get film category" do
-# 	end
-# 	it "get film area" do
-# 	end
-# 	it "get film source_url" do
-# 	end
-# 	it "get film director" do
-# 	end
-# 	it "get film introduction" do
-# 	end
-# 	it "get film download_url" do
-# 	end
-# 	it "get film download_url" do
-# 	end
-# 	it "get film expand" do
-# 	end
-
-# end
+	it "llduang保存抓取到的数据" do
+		website = Llduang::Website.new
+		website.save_content "http://www.llduang.com/23442.html", "鬼吹灯之寻龙诀.2015.TS", response
+	end
+end

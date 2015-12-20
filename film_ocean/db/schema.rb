@@ -111,7 +111,7 @@ ActiveRecord::Schema.define(version: 20151216153024) do
     t.integer  "film_area_id",         limit: 4
     t.integer  "film_introduction_id", limit: 4
     t.integer  "film_language",        limit: 4
-    t.datetime "make_date"
+    t.string   "make_date",            limit: 50
     t.integer  "show_type",            limit: 4
     t.integer  "click_rate",           limit: 4
     t.integer  "grade",                limit: 4

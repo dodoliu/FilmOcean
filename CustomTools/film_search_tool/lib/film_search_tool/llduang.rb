@@ -1,4 +1,4 @@
-#encoding=utf-8
+# encoding: utf-8
 
 =begin
 Author: LDY
@@ -64,39 +64,77 @@ module Llduang
 				end
 			end
 		end
+
 		#获取明细内容
 		def get_sub_content(sub_url, film_chinese_name)
 			response = (url_get sub_url).force_encoding('utf-8')
+			save_content sub_url, film_chinese_name, response
+		end
 
-			context_regex = /<div class="context">[\s\S]*?<\/div>/
-			context_result = context_regex.match response
+		def save_content(sub_url, film_chinese_name, response)
+			context_regex = %r(<div class="context">[\s\S]*?</div>[\s\S]*?<div class="indent">)
+			context_result = context_regex.match(response).to_s
 
+			# p context_result
 			#中文名称, 间接下载地址(明细地址)
-			film_chinese_name, detail_url = get_chinese_name_detail_url context_result
+			detail_url = sub_url
+
 			#英文名称
 			film_english_name = get_english_name context_result
+			$LOGGER.info("film_english_name:" + film_english_name)
 			#导演
 			directors = get_directors context_result
+			$LOGGER.info("directors:" + directors.to_s)
 			#演员
 			actors = get_actors context_result
+			$LOGGER.info("actors:" + actors.to_s)
 			#类别
 			categories = get_categories context_result
+			$LOGGER.info("categories:" + categories.to_s)
 			#区域
 			area = get_area context_result
+			$LOGGER.info("area:" + area)
 			#直接下载地址
 			download_url = get_download_url context_result
+			$LOGGER.info("download_url:" + download_url)
 			#百度云盘地址
 			download_baidu_url = get_download_baidu_url context_result
+			$LOGGER.info("download_baidu_url:" + download_baidu_url)
 			#百度云盘密码
 			download_baidu_password = get_download_baidu_password context_result
+			$LOGGER.info("download_baidu_password:" + download_baidu_password)
 			#logo
 			logo_url = get_logo context_result
+			$LOGGER.info("logo_url:" + logo_url)
 			#简介
 			introduction = get_introduction context_result
-			
+			$LOGGER.info("introduction:" + introduction)
+			#语言
+			language = get_language context_result
+			$LOGGER.info("language:" + language)
+			#公映日期
+			make_date = get_make_date context_result
+			$LOGGER.info("make_date:" + make_date)
+			#评分
+			grade = get_grade
+			$LOGGER.info("grade:" + grade.to_s)
+			#片长
+			duration = get_duration context_result
+			$LOGGER.info("duration:" + duration.to_s)
 
-			film_title = FilmTitle.llduang_save film_chinese_name, film_english_name
+			film_title = FilmTitle.save film_chinese_name, film_english_name
+			film_logo = FilmLogo.save logo_url
+			film_area = FilmArea.save area
+			film_introduction = FilmIntroduction.save introduction
+			film = Film.save([film_chinese_name, film_english_name, film_title.id,
+				film_logo.id, film_area.id, film_introduction.id,
+				language, make_date, 3, 0, grade, duration])
 
+			film.film_categories.save(film, categories)
+
+			film.film_actors.save(film, actors)
+
+			film.film_directors.save(film, directors)
 
 		end
 
@@ -131,7 +169,7 @@ module Llduang
 
 			sigle_film_infos.each do |sigle_film|
 				#获取影片名称和影片详情页
-				film_chinese_name, detail_url = get_chinese_name_detail_url sigle_film
+				film_chinese_name, detail_url = get_chinese_name_and_detail_url sigle_film
 				#获取明细内容
 				get_sub_content detail_url, film_chinese_name
 			end

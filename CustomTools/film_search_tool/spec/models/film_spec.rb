@@ -73,5 +73,9 @@ RSpec.describe Film do
 		expect(film.film_introduction.introduction).to eq(film_introduction_2.introduction)
 	end
 
-	pending 'film的事务测试'
+	# it 'film的事务测试' do
+	# 	Film.transaction do
+			
+	# 	end
+	# end
 end

@@ -27,12 +27,6 @@ require 'factories/film_categories'
 require 'factories/film_areas'
 require 'factories/film_actors'
 
-	# #数据库配置
-	# db_config_path = $ROOTFILEPATH + "/config/#{$APPLICATIONDB}.yml"
-	# db_config = YAML.load(File.open(db_config_path))
-	# ActiveRecord::Base.establish_connection(db_config["#{$APPLICATIONENV}"])
-
-
 RSpec.configure do |config|
 	#配置FactoryGirl
 	config.include FactoryGirl::Syntax::Methods
