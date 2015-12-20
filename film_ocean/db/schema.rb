@@ -79,10 +79,10 @@ ActiveRecord::Schema.define(version: 20151216153024) do
   end
 
   create_table "film_introductions", force: :cascade do |t|
-    t.string   "introduction", limit: 20
+    t.string   "introduction", limit: 2000
     t.integer  "film_id",      limit: 4
-    t.datetime "created_at",              null: false
-    t.datetime "updated_at",              null: false
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
   end
 
   create_table "film_logos", force: :cascade do |t|
