@@ -126,9 +126,9 @@ module Llduang
 			film_logo = FilmLogo.save logo_url
 			film_area = FilmArea.save area
 			film_introduction = FilmIntroduction.save introduction
-			film = Film.save([film_chinese_name, film_english_name, film_title.id,
+			film = Film.save(film_chinese_name, film_english_name, film_title.id,
 				film_logo.id, film_area.id, film_introduction.id,
-				language, make_date, 3, 0, grade, duration])
+				language, make_date, 3, 0, grade, duration)
 
 			film.film_categories.save(film, categories)
 
@@ -152,7 +152,8 @@ module Llduang
 			max_page_number_regex = /<a href='http:\/\/www.llduang.com\/tag\/#{CGI::escape(film_class)}\/page\/\d{1,5}' class='extend' title='跳转到最后一页'>尾页<\/a>/
 			max_page_number_url = max_page_number_regex.match response
 			#该分类具有的最大分页
-			max_page_number = (/\d{1,5}/.match max_page_number_url.to_s).to_s.to_i
+			
+			(/\d{1,5}/.match max_page_number_url.to_s).to_s.to_i
 		end
 
 		#分析内容
