@@ -36,7 +36,7 @@ module Llduang
 				response = (url_get url).force_encoding('utf-8')
 
 				#为了不影响网站的正常访问，每次请求之后，主线程sleep 5分钟
-				sleep 60 * 5
+				sleep 5
 
 				# 	response = %q(<div class="clear"></div>
 				# <div class="navigation container">
@@ -152,7 +152,6 @@ module Llduang
 			max_page_number_regex = /<a href='http:\/\/www.llduang.com\/tag\/#{CGI::escape(film_class)}\/page\/\d{1,5}' class='extend' title='跳转到最后一页'>尾页<\/a>/
 			max_page_number_url = max_page_number_regex.match response
 			#该分类具有的最大分页
-			
 			(/\d{1,5}/.match max_page_number_url.to_s).to_s.to_i
 		end
 
@@ -166,7 +165,7 @@ module Llduang
 
 			#匹配单个影片信息区块
 			sigle_film_info_regex = /<li class="post box row fixed-hight">[\s\S]*?<\/li>/
-			sigle_film_infos = sigle_film_info_regex.match response
+			sigle_film_infos = (sigle_film_info_regex.match response).to_a
 
 			sigle_film_infos.each do |sigle_film|
 				#获取影片名称和影片详情页
@@ -177,3 +176,7 @@ module Llduang
 		end
 	end
 end
+
+aaa = Llduang::Website.new
+aaa.get_contentbackend
+

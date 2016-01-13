@@ -1,0 +1,1 @@
+admins_controller.rb
