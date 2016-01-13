@@ -1,3 +1,6 @@
-module WebSite
-	class FilmsController < WebSite::ApplicationController
+module Website
+	class FilmsController < Website::ApplicationController
+		def index
+		end
+	end
 end
