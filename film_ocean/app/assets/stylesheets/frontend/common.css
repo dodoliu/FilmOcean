@@ -7,7 +7,7 @@
 	height: 30px;
 	line-height: 2;
 }
-#span8 {	
+#span8 {
   margin-left: 16%;
 }
 
@@ -48,7 +48,7 @@
 #detail_right{
 	float:right;
 }
-.marquee{    
+.marquee{
 	background-color: #f5f5f5;
 }
 .marquee li{
@@ -60,4 +60,12 @@
 	text-align: center;
 	overflow: hidden;
 	padding-top: 5px;
+}
+.txt_ellipsis{
+	/*text-overflow:ellipsis;*/
+	/*white-space: :nowrap;*/
+	overflow:hidden;
+	width:205px;
+	height: 19px;
+	line-height: 18px;
 }
