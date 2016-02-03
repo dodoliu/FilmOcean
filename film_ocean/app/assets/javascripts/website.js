@@ -4,5 +4,4 @@
 //= require bootstrap.min
 //= require jquery-ui
 //= require jquery.marquee.min
-
-
+//= require frontend/index

@@ -1,73 +1,75 @@
+<div class="row-fluid">
+	<div class="span8" id="span8">
 
-	<div class="row-fluid">
-		<div class="span8" id="span8">
-			<%= render 'website/shared/head' %>
-			<div class="row-fluid">
-				<div class="span12">
-					<ul class="thumbnails">
-						<% @films.each do |film| %>
-							<li class="span3">
-								<div class="thumbnail">
-									<a href="./detail.html">
-										<img alt="<%= film.chinese_name %>" width="300" title='<%= film.chinese_name %>' src="<%= asset_path('tmp.png') %>" />
-									</a>
-									<div class="caption description">
-										<h3 class="txt_ellipsis">
-											<%= film.chinese_name %>
-										</h3>
-										<p class="txt_ellipsis">
-											简介：<%= film.chinese_name %>
-										</p>
-										<ul>
-											<li class="description_li_1">
-												<i class="icon-calendar description_li_i"></i><span>2015-10-21</span>
-											</li>
-											<li class="description_li_2">
-												<i class="icon-eye-open description_li_i"></i><span>10000000</span>
-											</li>
-											<li class="description_li_3">
-												<i class="icon-star description_li_i"></i>
-												<i class="icon-star description_li_i"></i>
-												<i class="icon-star description_li_i"></i>
-												<i class="icon-star description_li_i"></i>
-												<i class="icon-star-empty description_li_i"></i>
-											</li>
-										</ul>
-									</div>
+		<%= render 'website/shared/head' %>
+		<%= render 'website/shared/marquee' %>
+
+		<div class="row-fluid">
+			<div class="span12">
+				<ul class="thumbnails">
+					<% @films.each do |film| %>
+						<li class="span3">
+							<div class="thumbnail">
+								<a href="./detail.html">
+									<img alt="<%= film.chinese_name %>" width="300" title='<%= film.chinese_name %>' src="<%= asset_path('tmp.png') %>" />
+								</a>
+								<div class="caption description">
+									<h3 class="txt_ellipsis">
+										<%= film.chinese_name %>
+									</h3>
+									<p class="txt_ellipsis">
+										简介：<%= film.chinese_name %>
+									</p>
+									<ul>
+										<li class="description_li_1">
+											<i class="icon-calendar description_li_i"></i><span>2015-10-21</span>
+										</li>
+										<li class="description_li_2">
+											<i class="icon-eye-open description_li_i"></i><span>10000000</span>
+										</li>
+										<li class="description_li_3">
+											<i class="icon-star description_li_i"></i>
+											<i class="icon-star description_li_i"></i>
+											<i class="icon-star description_li_i"></i>
+											<i class="icon-star description_li_i"></i>
+											<i class="icon-star-empty description_li_i"></i>
+										</li>
+									</ul>
 								</div>
-							</li>
-						<% end %>
+							</div>
+						</li>
+					<% end %>
 
 
 
+				</ul>
+				<div class="pagination pagination-right pagination-small pagination_div">
+					<ul>
+						<li>
+							<a href="#">上一页</a>
+						</li>
+						<li>
+							<a href="#">1</a>
+						</li>
+						<li>
+							<a href="#">2</a>
+						</li>
+						<li>
+							<a href="#">3</a>
+						</li>
+						<li>
+							<a href="#">4</a>
+						</li>
+						<li>
+							<a href="#">5</a>
+						</li>
+						<li>
+							<a href="#">下一页</a>
+						</li>
 					</ul>
-					<div class="pagination pagination-right pagination-small pagination_div">
-						<ul>
-							<li>
-								<a href="#">上一页</a>
-							</li>
-							<li>
-								<a href="#">1</a>
-							</li>
-							<li>
-								<a href="#">2</a>
-							</li>
-							<li>
-								<a href="#">3</a>
-							</li>
-							<li>
-								<a href="#">4</a>
-							</li>
-							<li>
-								<a href="#">5</a>
-							</li>
-							<li>
-								<a href="#">下一页</a>
-							</li>
-						</ul>
-					</div>
 				</div>
 			</div>
 		</div>
 	</div>
+</div>
 
