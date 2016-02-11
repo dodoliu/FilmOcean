@@ -1,1 +1,6 @@
-admins_controller.rb
+module Backend
+	class AdminsController < Backend::ApplicationController
+		def index
+		end
+	end
+end

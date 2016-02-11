@@ -3,6 +3,10 @@ Rails.application.routes.draw do
 
   root 'website/films#index'
 
+  namespace :backend do
+    root 'admins#index'
+  end
+
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
