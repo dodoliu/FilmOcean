@@ -1,0 +1,43 @@
+    <div class="main-content">
+
+<div class="btn-toolbar list-toolbar">
+    <a href="<%= new_backend_film_title_path %>" class="btn btn-primary"><i class="fa fa-plus"></i> 新增</a>
+    <a href="#" class="btn btn-default">导入</a>
+    <a href="#" class="btn btn-default">导出</a>
+    <a href="#" class="btn btn-default">下载模板</a>
+  <div class="btn-group">
+  </div>
+</div>
+<table class="table">
+  <thead>
+    <tr>
+      <th>中文名</th>
+      <th>英文名</th>
+      <th style="width: 3.5em;"></th>
+    </tr>
+  </thead>
+  <tbody>
+  <% @film_titles.each do |title| %>
+    <tr>
+      <td><%= title.chinese_name %></td>
+      <td><%= title.english_name%></td>
+      <td>
+          <a href="<%= edit_backend_film_title_path title %>"><i class="fa fa-pencil"></i></a>
+          <a href="<%= backend_film_title_path title%>" data-confirm="确定删除吗?" data-method="delete" role="button" data-toggle="modal"><i class="fa fa-trash-o"></i></a>
+      </td>
+    </tr>
+   <% end %>
+  </tbody>
+</table>
+
+<ul class="pagination">
+  <li><a href="#">&laquo;</a></li>
+  <li><a href="#">1</a></li>
+  <li><a href="#">2</a></li>
+  <li><a href="#">3</a></li>
+  <li><a href="#">4</a></li>
+  <li><a href="#">5</a></li>
+  <li><a href="#">&raquo;</a></li>
+</ul>
+
+

@@ -66,6 +66,18 @@
         });
     </script>
 
+    <%= render 'backend/shared/header' %>
+    <%= render 'backend/shared/menu' %>
+
+    <div class="content">
+    <%= backend_nvigation %>
+
 	<%= yield %>
+
+    <%= render 'backend/shared/confirm' %>
+    <%= render 'backend/shared/footer' %>
+
+    </div>
+    </div>
 </body>
 </html>

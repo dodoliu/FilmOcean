@@ -1,10 +1,18 @@
 Rails.application.routes.draw do
 
 
+  get 'film_logos/index'
+
+  get 'film_logos/new'
+
+  get 'film_logos/edit'
+
   root 'website/films#index'
 
   namespace :backend do
     root 'admins#index'
+
+    resources :film_titles
   end
 
 
